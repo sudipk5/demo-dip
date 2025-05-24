@@ -1,17 +1,21 @@
 # Use official Node.js LTS image
-FROM node
+FROM node:lts
 
-
+# Set environment variables (correct the typo)
 ENV MONGO_DB_USERNAME=admin \
-    MONDO_DB_PWD_=qwerty
+    MONGO_DB_PWD=qwerty
 
+# Set working directory inside the container
+WORKDIR /docker-testapp
 
+# Copy package.json and package-lock.json first (for caching dependencies)
+COPY package*.json ./
 
-# Copy package.json and package-lock.json
-COPY . /docker-testapp
+# Install dependencies
+RUN npm install
 
-
-
+# Copy rest of the source code
+COPY . .
 
 # Run the application
-CMD ["node" , "/docker-testapp/server.js"]
+CMD ["node", "server.js"]

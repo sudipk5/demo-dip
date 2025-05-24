@@ -17,3 +17,14 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: admin
       ME_CONFIG_MONGODB_ADMINPASSWORD: qwerty
       ME_CONFIG_MONGODB_URL: mongodb://admin:qwerty@mongodb:27017/
+
+  app:
+    build: .
+    ports:
+      - "3000:5050"   # Change 3000 to whatever port your app uses
+    environment:
+      MONGO_DB_USERNAME: admin
+      MONGO_DB_PWD: qwerty
+      MONGO_URL: mongodb://admin:qwerty@mongodb:27017/
+    depends_on:
+      - mongodb
